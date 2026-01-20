@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../../helpers/API";
+import API from "../../utils/api";
 
 import {
   LineChart,

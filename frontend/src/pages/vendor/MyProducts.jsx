@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import API from "../../helpers/API";
+import API from "../../utils/api";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 

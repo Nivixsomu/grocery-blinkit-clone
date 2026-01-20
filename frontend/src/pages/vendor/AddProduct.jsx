@@ -1,5 +1,5 @@
 import { useState } from "react";
-import API from "../../helpers/API";
+import API from "../../utils/api";
 import { toast } from "react-hot-toast";
 
 export default function AddProduct() {

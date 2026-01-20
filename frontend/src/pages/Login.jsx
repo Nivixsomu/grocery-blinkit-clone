@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import API from "../utils/api";   // ✅ IMPORTANT
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await API.post("/auth/login", {
         email,
         password,
       });
@@ -25,24 +25,17 @@ export default function Login() {
 
       // redirect based on role
       if (res.data.role === "customer") {
-           navigate("/customer/home");
-          } 
-
-      else if (res.data.role === "vendor") {
-  navigate("/vendor/dashboard");   // we'll create vendor home
-  } 
-
-      else if (res.data.role === "admin") {
-  navigate("/admin/dashboard");    // we'll create admin home
-  } 
-
-      else if (res.data.role === "delivery") {
-  navigate("/delivery/home"); // correct delivery home page
-  }
-
+        navigate("/customer/home");
+      } else if (res.data.role === "vendor") {
+        navigate("/vendor/dashboard");
+      } else if (res.data.role === "admin") {
+        navigate("/admin/dashboard");
+      } else if (res.data.role === "delivery") {
+        navigate("/delivery/home");
+      }
 
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error(error.response?.data?.message || "Login failed!");
     }
   };
@@ -53,8 +46,7 @@ export default function Login() {
         <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
 
         <form onSubmit={handleLogin} className="space-y-4">
-          
-          <input 
+          <input
             type="email"
             placeholder="Enter Email"
             className="w-full border p-3 rounded"
@@ -62,7 +54,7 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <input 
+          <input
             type="password"
             placeholder="Enter Password"
             className="w-full border p-3 rounded"
@@ -70,20 +62,20 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button 
+          <button
             type="submit"
             className="w-full bg-green-600 text-white p-3 rounded hover:bg-green-700"
           >
             Login
           </button>
-
         </form>
+
         <p className="text-center mt-4">
-  Don't have an account?{" "}
-  <a href="/register" className="text-blue-600 underline">Register</a>
-</p>
-
-
+          Don&apos;t have an account?{" "}
+          <a href="/register" className="text-blue-600 underline">
+            Register
+          </a>
+        </p>
       </div>
     </div>
   );

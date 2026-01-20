@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import API from "../utils/api";   // ✅ IMPORTANT
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -14,16 +14,17 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
+      await API.post("/auth/register", {
         name,
         email,
         password,
         phone,
-        role: "customer"
+        role: "customer",
       });
 
       toast.success("Registration Successful!");
       navigate("/");
+
     } catch (error) {
       toast.error(error.response?.data?.message || "Registration failed!");
     }
@@ -35,8 +36,7 @@ export default function Register() {
         <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
 
         <form onSubmit={handleRegister} className="space-y-4">
-          
-          <input 
+          <input
             type="text"
             className="w-full border p-3 rounded"
             placeholder="Full Name"
@@ -44,7 +44,7 @@ export default function Register() {
             onChange={(e) => setName(e.target.value)}
           />
 
-          <input 
+          <input
             type="email"
             className="w-full border p-3 rounded"
             placeholder="Email Address"
@@ -52,7 +52,7 @@ export default function Register() {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <input 
+          <input
             type="text"
             className="w-full border p-3 rounded"
             placeholder="Phone Number"
@@ -60,7 +60,7 @@ export default function Register() {
             onChange={(e) => setPhone(e.target.value)}
           />
 
-          <input 
+          <input
             type="password"
             className="w-full border p-3 rounded"
             placeholder="Password"
@@ -68,15 +68,13 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button 
+          <button
             type="submit"
             className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700"
           >
             Register
           </button>
-
         </form>
-
       </div>
     </div>
   );
