@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API, { addToCart } from "../../utils/api";
 import { toast } from "react-hot-toast";
 import ProductCard from "../../components/ProductCard";
@@ -18,6 +19,7 @@ const CATEGORIES = [
 ];
 
 export default function CustomerHome() {
+  const navigate = useNavigate(); // ✅ FIX
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -76,21 +78,19 @@ export default function CustomerHome() {
       {/* ===== HEADER ===== */}
       <div className="sticky top-0 z-40 backdrop-blur bg-white/90 shadow p-4">
         <div className="flex justify-between items-center mb-3">
-          <h1 className="text-2xl font-bold">
-            🏪 Kirana Store
-          </h1>
+          <h1 className="text-2xl font-bold">🏪 Kirana Store</h1>
 
           {/* TOP RIGHT BUTTONS */}
           <div className="flex gap-3">
             <button
-              onClick={() => (window.location.href = "/customer/orders")}
+              onClick={() => navigate("/customer/orders")} // ✅ FIX
               className="bg-gray-800 text-white px-4 py-2 rounded hover:scale-105 active:scale-95 transition"
             >
               My Orders
             </button>
 
             <button
-              onClick={() => (window.location.href = "/customer/cart")}
+              onClick={() => navigate("/customer/cart")} // ✅ FIX
               className="relative bg-green-600 text-white px-4 py-2 rounded flex items-center gap-1 hover:scale-105 active:scale-95 transition"
             >
               <FiShoppingCart />
@@ -164,10 +164,7 @@ export default function CustomerHome() {
 
       {/* ===== STICKY CART BAR ===== */}
       {totalItems > 0 && (
-        <CartBar
-          total={cart.totalAmount}
-          totalItems={totalItems}
-        />
+        <CartBar total={cart.totalAmount} totalItems={totalItems} />
       )}
     </div>
   );

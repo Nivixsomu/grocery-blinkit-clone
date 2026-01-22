@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function CartBar({ total, totalItems }) {
+  const navigate = useNavigate();
+
   if (!totalItems || totalItems === 0) return null;
 
   return (
@@ -11,7 +15,7 @@ export default function CartBar({ total, totalItems }) {
       </div>
 
       <button
-        onClick={() => (window.location.href = "/customer/checkout")}
+        onClick={() => navigate("/customer/checkout")}
         className="bg-white text-green-700 font-bold px-4 py-2 rounded-lg"
       >
         Checkout →

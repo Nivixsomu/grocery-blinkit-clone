@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import API from "../../utils/api";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
+  const navigate = useNavigate();
   const [cart, setCart] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState("");
@@ -59,7 +61,7 @@ export default function Checkout() {
         addressId: selectedAddress,
       });
       toast.success("Order placed successfully!");
-      window.location.href = "/customer/success";
+      navigate("/customer/success");
     } catch {
       toast.error("❌ Sorry, we do not deliver to this area yet");
     }
