@@ -2,6 +2,8 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/api";   // ✅ IMPORTANT
+import { Link } from "react-router-dom";
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -71,11 +73,12 @@ export default function Login() {
         </form>
 
         <p className="text-center mt-4">
-          Don&apos;t have an account?{" "}
-          <a href="/register" className="text-blue-600 underline">
-            Register
-          </a>
-        </p>
+  Don't have an account?{" "}
+  <Link to="/register" className="text-blue-600 underline">
+    Register
+  </Link>
+</p>
+
       </div>
     </div>
   );
